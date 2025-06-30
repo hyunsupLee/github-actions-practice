@@ -1,29 +1,36 @@
-name: Github Actions 실행시켜보기
+# This is a basic workflow to help you get started with Actions
 
+name: CI
+
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches:
-      - main
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  My-Deploy-Job:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Hello World 찍기
-        run: echo "Hello World"
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
 
-      - name: 2번찍기
-        run: |
-          echo "Hello World2"
-          echo "Hello World3"
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
 
-      - name: github actions 자체에 저장되어 있는 변수 사용해 보기
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
         run: |
-          echo $GITHUB_SHA
-          echo $GITHUB_REPOSITORY
-
-      - name: 아무한테 노출이 안되는 값
-        run: |
-          echo ${{secrets.MY_NAME}}
-          echo ${{secrets.MY_PHONE}}
+          echo Add other actions to build,
+          echo test, and deploy your project.
